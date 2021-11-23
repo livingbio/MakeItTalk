@@ -1,0 +1,6 @@
+build:
+- g8 stage builder # --cache
+
+deploy:
+- docker push {{IMAGE}}:{{TAG}}
+- bash ./scripts/deploy.sh

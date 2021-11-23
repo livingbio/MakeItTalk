@@ -46,7 +46,8 @@
 - CUDA Driver：470.82.00
 - CUDA：11.4
 - cuDNN：8.x.x
-- Python version：3.8.10
+- Python version(local)：3.8.10
+- Python version(docker)：3.6.9
 
 ### 實際硬體用量
 
@@ -59,6 +60,19 @@
     |2   | 8s  |  17.6s |
     | 3  | 9s  |  17.9s |
     | 4  |  17s| 27.8s |
+
+
+## Pre-trained Models
+
+Download the following pre-trained models to `examples/ckpt` folder for testing your own animation.
+
+| Model |  Link to the model | 
+| :-------------: | :---------------: |
+| Voice Conversion  | [Link](https://drive.google.com/file/d/1ZiwPp_h62LtjU0DwpelLUoodKPR85K7x/view?usp=sharing)  |
+| Speech Content Module  | [Link](https://drive.google.com/file/d/1r3bfEvTVl6pCNw5xwUhEglwDHjWtAqQp/view?usp=sharing)  |
+| Speaker-aware Module  | [Link](https://drive.google.com/file/d/1rV0jkyDqPW-aDJcj7xSO6Zt1zSXqn1mu/view?usp=sharing)  |
+| Image2Image Translation Module  | [Link](https://drive.google.com/file/d/1i2LJXKp-yWKIEEgJ7C6cE3_2NirfY_0a/view?usp=sharing)  |
+| Non-photorealistic Warping (.exe)  | [Link](https://drive.google.com/file/d/1rlj0PAUMdX8TLuywsn6ds_G6L63nAu0P/view?usp=sharing)  |
 
 ## 安裝方法 (docker)
 
@@ -73,8 +87,6 @@
 - 將圖片（256*256）放入 `src/examples`。
 - 將音檔放入 `src/examples`（讓 `src/examples` 內只有一個.wav檔）
 - Run `python main_end2end.py --jpg <portrait_file.jpg>` .
-
-## 
 
 ## [License](src/LICENSE.md)
 

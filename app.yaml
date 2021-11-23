@@ -1,0 +1,25 @@
+project: living-bio
+application: makeittalk
+port: 80
+
+resources:
+  requests:
+    cpu: 1
+    memory: 5Gi
+  limits:
+    cpu: 2
+    memory: 6Gi
+
+automatic_scaling:
+  min: 0
+  max: 1
+
+node:
+  scope: gpu
+
+env_variables:
+  CLOUDINARY_CLOUD_NAME: %CLOUDINARY_CLOUD_NAME%
+  CLOUDINARY_API_KEY: %CLOUDINARY_API_KEY%
+  CLOUDINARY_API_SECRET: %CLOUDINARY_API_SECRET%
+
+cmd: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]

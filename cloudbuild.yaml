@@ -1,0 +1,14 @@
+timeout: 7200s
+steps:
+
+# stage
+- name: asia.gcr.io/living-bio/g8:1.2
+  entrypoint: bash
+  args:
+  - '-c'
+  - |
+    sed -i 's/%CLOUDINARY_CLOUD_NAME%/'${_CLOUDINARY_CLOUD_NAME}'/g' app.yaml \
+    && sed -i 's/%CLOUDINARY_API_KEY%/'${_CLOUDINARY_API_KEY}'/g' app.yaml \
+    && sed -i 's/%CLOUDINARY_API_SECRET%/'${_CLOUDINARY_API_SECRET}'/g' app.yaml \
+    && g8 stage step auto --repo=$REPO_NAME --branch=$BRANCH_NAME --tag=$TAG_NAME --commit=$COMMIT_SHA --build=$BUILD_ID --verbose
+logsBucket: 'gs://cloudbuild-log'

@@ -7,11 +7,11 @@ import typing
 
 
 class Base(pydantic.BaseSettings):
-    # BERT_MODEL_PATH: str = os.path.join(os.path.dirname(__file__), "../ex/models")
     DEVICE: str = "cuda" if torch.cuda.is_available() else "cpu"
-    # PRELOAD_MAKEITTALK_MODELS: bool = True
-    # DEFAULT_FILE_STORAGE: pydantic.PyObject = "gfs.storages.FileSystemStorage"
-    # LOCATION: pydantic.DirectoryPath = "./"
+
+    CLOUDINARY_CLOUD_NAME: str = pydantic.Field(..., env="CLOUDINARY_CLOUD_NAME")
+    CLOUDINARY_API_KEY: str = pydantic.Field(..., env="CLOUDINARY_API_KEY")
+    CLOUDINARY_API_SECRET: str = pydantic.Field(..., env="CLOUDINARY_API_SECRET")
     
     # from main_end2end.py parser
     default_head_name: str = 'dali'
@@ -51,32 +51,16 @@ class Base(pydantic.BaseSettings):
     lambda_laplacian_smooth_loss : float = 1.0
     use_11spk_only : bool = False
 
-    # def post_setup(self):
-    #     from MakeItTalk import initialized
 
-    #     if self.PRELOAD_MAKEITTALK_MODELS:
-    #         initialized.preload_all()
-
-    # def setup_default_storage(self):
-    #     return self.DEFAULT_FILE_STORAGE(**self.dict())
-
-class Debug(Base):
-    PRELOAD_BERT_MODELS: bool = False
-
-
-class Test(Base):
+# class Test(Base):
     # DEVICE: str = "cpu"
-    PRELOAD_BERT_MODELS: bool = False
 
 
 class Config(pydantic.BaseSettings):
-    SETTINGS: pydantic.PyObject = "app.conf.Test"
+    SETTINGS: pydantic.PyObject = "app.conf.Base"
 
 
 config = Config()
 settings = config.SETTINGS()
 
-# default_storage = settings.setup_default_storage()
-
 print(f"SETTINGS: {settings}")
-# print(f"DEFAULT STORAGE: {default_storage}")

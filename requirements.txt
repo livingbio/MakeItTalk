@@ -10,9 +10,9 @@ pysptk
 pyworld
 resemblyzer
 
-# torchvision
 tensorboardX
 fastapi
 uvicorn
 pydantic
 python-multipart
+cloudinary
