@@ -78,8 +78,8 @@ Download the following pre-trained models to `examples/ckpt` folder for testing 
 
 - 在 host 上安裝 Docker and NVIDIA Container Toolkit 以使用 GPU-enabled docker.
 - 如果欲使用 CUDA 和 GPU，確認 host 的 CUDA driver 是否支援 CUDA 11.1，如果不支援，可以使用較低版本的 CUDA image，另外修改安裝的 torch 版本，Few-shot vid2vid 含有需要自行編譯的 module，需要 torch 編譯的 CUDA 版本和容器 CUDA 版本一致。
-- Build the image with `docker build -t makeittalk .`
-- Run the container with `docker run -it --gpus all makeittalk bash`
+- Build the image with `docker build -t makeittalk:latest .`
+- Run the container with `docker run -it --gpus all makeittalk:latest bash`
 
 ## Test Model
 
@@ -87,6 +87,80 @@ Download the following pre-trained models to `examples/ckpt` folder for testing 
 - 將圖片（256*256）放入 `src/examples`。
 - 將音檔放入 `src/examples`（讓 `src/examples` 內只有一個.wav檔）
 - Run `python main_end2end.py --jpg <portrait_file.jpg>` .
+
+## MakeItTalk API Service
+
+### Run MakeItTalk API Service Locally
+- 使用 API service 之前先建立 [Cloudinary](https://cloudinary.com) 帳號。
+
+- Install packages
+  ``` bash
+  $ cd src
+
+  $ pip install -r requirement.txt
+  ```
+
+- Set [Cloudinary](https://cloudinary.com) environment variables
+
+  ``` bash
+  $ export CLOUDINARY_API_KEY='123451234512345'
+  $ export CLOUDINARY_API_SECRET='AsdfghjklAsdfghjklAsdfghjkl'
+  $ export CLOUDINARY_CLOUD_NAME='mycloud123'
+  ```
+- Run API service locally
+  ```bash
+  $ uvicorn main:app --host 0.0.0.0 --port 8080 bash
+  ```
+
+### Run MakeItTalk API Service in Docker
+- Use the image `makeittalk:latest` built in previous part.
+
+  ```bash
+  $ docker run --gpus all -p 127.0.0.1:8080:80 -it makeittalk:latest bash
+
+  root@9b3825bb8d5d:/work/src$ export CLOUDINARY_API_KEY='123451234512345'
+  root@9b3825bb8d5d:/work/src$ export CLOUDINARY_API_SECRET='AsdfghjklAsdfghjklAsdfghjkl'
+  root@9b3825bb8d5d:/work/src$ export CLOUDINARY_CLOUD_NAME='mycloud123'
+  root@9b3825bb8d5d:/work/src$ uvicorn main:app --host 0.0.0.0 --port 80
+  ```
+
+### API Usage
+
+<table>
+    <tbody>
+        <tr>
+            <td>URL</td>
+            <td>HTTP Method</td>
+            <td>Request</td>
+            <td>Response</td>
+        </tr>
+        <tr>
+            <td>/audio2vid</td>
+            <td>POST</td>
+            <td>{
+              "audio": String,
+              "image": String
+            }</td>
+            <td>{
+              "output_url": String
+            }</td>
+        </tr>
+    </tbody>
+</table>
+
+### API Usage Example
+
+```JSON
+// sample input
+{
+  "audio": "https://your.audio/audio.wav",
+  "image": "https://your.image/image.jpg"
+}
+// sample output
+{
+  "output_url": "http://res.cloudinary.com/mycloud123/video/upload/v0123456789/makeittalk-outputs/rhuifh83hf4xnf8944j3.mp4"
+}
+```
 
 ## [License](src/LICENSE.md)
 
