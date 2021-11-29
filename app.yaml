@@ -15,7 +15,7 @@ automatic_scaling:
   max: 1
 
 node:
-  scope: gpu
+  scope: gpu-worker
 
 env_variables:
   CLOUDINARY_CLOUD_NAME: %CLOUDINARY_CLOUD_NAME%
