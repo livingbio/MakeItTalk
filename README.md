@@ -77,7 +77,7 @@ Download the following pre-trained models to `examples/ckpt` folder for testing 
 ## 安裝方法 (docker)
 
 - 在 host 上安裝 Docker and NVIDIA Container Toolkit 以使用 GPU-enabled docker.
-- 如果欲使用 CUDA 和 GPU，確認 host 的 CUDA driver 是否支援 CUDA 11.1，如果不支援，可以使用較低版本的 CUDA image，另外修改安裝的 torch 版本，Few-shot vid2vid 含有需要自行編譯的 module，需要 torch 編譯的 CUDA 版本和容器 CUDA 版本一致。
+- 如果欲使用 CUDA 和 GPU，確認 host 的 CUDA driver 是否支援 CUDA 11.1，如果不支援，可以使用較低版本的 CUDA image，另外修改安裝的 torch 版本。
 - Build the image with `docker build -t makeittalk:latest .`
 - Run the container with `docker run -it --gpus all makeittalk:latest bash`
 
